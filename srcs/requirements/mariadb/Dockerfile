@@ -6,7 +6,10 @@
 #    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/06 23:35:01 by tasano            #+#    #+#              #
-#    Updated: 2023/07/06 23:35:01 by tasano           ###   ########.fr        #
+#    Updated: 2023/07/15 16:05:58 by tasano           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+FROM debian:11
+
+RUN apt-get update && apt-get upgrade
