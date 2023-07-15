@@ -1,7 +1,7 @@
 SRC_DIR				:= ./srcs
 REQUIREMENTS_DIR	:= $(SRC_DIR)/requirements
 
-DOCKER_COMPOSE_FILE	:=$(SRC_DIR)/docker-compose.yaml
+DOCKER_COMPOSE_FILE	:=$(SRC_DIR)/docker-compose.yml
 
 NGINX_DIR			:= $(REQUIREMENTS_DIR)/nginx
 NGINX_FILE			:= $(NGINX_DIR)/Dockerfile

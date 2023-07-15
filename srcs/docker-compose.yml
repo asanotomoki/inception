@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web: 
+    build: ./requirements/nginx
+    ports:
+      - 9000:80
+    volumes:
+      - ./requirements/wordpress:/etc/nginx/conf.d
+    tty: true
+    stdin_open: true
+    depends_on:
+      - wordpress
+  wordpress: 
+    build: ./requirements/wordpress
+    volumes:
+      - ./requirements/wordpress:/var/www/html
+    environment: 
+      - ./wordpress/.env
+    depends_on:
+      - db
+  db:
+    build: ./requirements/mariadb
+    volumes:
+      - ./requirements/mariadb:/var/lib/mysql
+    environment:
+      - ./mariadb/.env
+
+
