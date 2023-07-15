@@ -18,7 +18,7 @@ GREEN	:= \033[1;32m
 YELLOW	:= \033[1;33m
 DEFAULT	:= \033[0m
 
-.PHONY: build-nginx
+.PHONY: build-nginx build-wordpress build-mariadb build-all up down re
 
 build-nginx: 
 	@echo "$(GREEN) Build Nginx $(DEFAULT)"
