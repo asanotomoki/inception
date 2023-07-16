@@ -22,7 +22,7 @@ DEFAULT	:= \033[0m
 
 build-nginx: 
 	@echo "$(GREEN) Build Nginx $(DEFAULT)"
-	@docker build $(NGINX_DIR)
+	@docker compose -f $(DOCKER_COMPOSE_FILE) build nginx
 
 build-wordpress:
 	@echo "$(GREEN) Build Wordpress $(DEFAULT)"
