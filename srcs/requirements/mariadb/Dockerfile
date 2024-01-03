@@ -1,17 +1,8 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Dockerfile                                         :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: tasano <tasano@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/06 23:35:01 by tasano            #+#    #+#              #
-#    Updated: 2023/07/15 17:04:26 by tasano           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+FROM mariadb:latest
 
-FROM debian:11
+COPY ./init.sql /docker-entrypoint-initdb.d/
 
-RUN apt-get update && apt-get upgrade
+EXPOSE 3306
 
-RUN apt-get install 
+
+VOLUME [ "/var/lib/mysql" ]

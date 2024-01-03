@@ -20,6 +20,12 @@ DEFAULT	:= \033[0m
 
 .PHONY: build-nginx build-wordpress build-mariadb build-all up down re
 
+init:
+	@echo "$(GREEN) Init $(DEFAULT)"
+	@docker compose -f $(DOCKER_COMPOSE_FILE) up -d
+	@docker exec -it wordpress bash -c "bash /tmp/init.sh"
+	@docker compose -f $(DOCKER_COMPOSE_FILE) down
+
 build-nginx: 
 	@echo "$(GREEN) Build Nginx $(DEFAULT)"
 	@docker compose -f $(DOCKER_COMPOSE_FILE) build nginx
@@ -44,5 +50,9 @@ up:
 down:
 	@echo "$(RED) Docker Compose Down $(DEFAULT)"
 	@docker compose -f $(DOCKER_COMPOSE_FILE) down
+
+rmi:
+	@echo "$(RED) Remove all images $(DEFAULT)"
+	@docker rmi -f nginx wordpress mariadb
 
 re: down up

@@ -2,6 +2,7 @@ version: '3'
 
 services:
   nginx: 
+    image: nginx
     build: ./requirements/nginx
     ports:
       - 9000:80
@@ -12,18 +13,25 @@ services:
     depends_on:
       - wordpress
   wordpress: 
+    image: wordpress
     build: ./requirements/wordpress
     volumes:
-      - ./requirements/wordpress:/var/www/html
+      - ./requirements/wordpress/content:/var/www/html
     environment: 
       - ./wordpress/.env
     depends_on:
       - db
   db:
+    image: mariadb
     build: ./requirements/mariadb
     volumes:
       - ./requirements/mariadb:/var/lib/mysql
     environment:
-      - ./mariadb/.env
+      - ./.env
+    
+networks:
+  default:
+    external:
+      name: nginx-proxy
 
 

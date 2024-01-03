@@ -12,14 +12,13 @@
 
 FROM debian:latest
 
-# Nginxを起動するコマンドを指定します
-CMD ["nginx", "-g", "daemon off;"]
 
-RUN apt-get update && apt-get upgrade \ 
-	apt-get install -y nginx 
+RUN apt-get update && apt-get upgrade
 
-
+RUN apt-get install -y nginx
 
 EXPOSE 80 
 
+# Nginxを起動するコマンドを指定します
+CMD ["nginx", "-g", "daemon off;"]
 
