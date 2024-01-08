@@ -9,6 +9,7 @@ services:
     volumes:
       - ./requirements/nginx/conf:/etc/nginx/conf.d
       - ./requirements/nginx/logs:/var/log/nginx
+      - ./requirements/wordpress/content:/var/www/html
     tty: true
     stdin_open: true
     depends_on:
@@ -23,10 +24,10 @@ services:
     expose:
       - 9000
     environment: 
-      - WORDPRESS_DB_HOST=db:3306
-      - WORDPRESS_DB_USER=root
-      - WORDPRESS_DB_PASSWORD=123456
-      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
+      - WORDPRESS_DB_NAME=${DB_NAME}
     depends_on:
       - db
     networks:
@@ -37,8 +38,8 @@ services:
     volumes:
       - ./requirements/mariadb/database:/var/lib/mysql
     environment:
-      - MARIADB_ROOT_PASSWORD=123456
-      - MARIADB_DATABASE=wordpress
+      - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
+      - MARIADB_DATABASE=${DB_NAME}
     networks:
       - default
     

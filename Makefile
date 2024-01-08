@@ -18,7 +18,7 @@ init:
 
 
 build: 
-	docker compose -f $(DOCKER_COMPOSE_FILE) build --no-cache
+	docker compose -f $(DOCKER_COMPOSE_FILE) build
 
 up:
 	@docker compose -f $(DOCKER_COMPOSE_FILE) up -d
