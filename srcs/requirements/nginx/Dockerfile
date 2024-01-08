@@ -1,11 +1,10 @@
 FROM debian:latest
 
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y nginx openssl
+RUN apt-get install -y nginx openssl gettext-base
 
 # SSL設定のための設定ファイルをコピー（設定ファイルを作成してください）
-RUN touch /etc/nginx/conf.d/default.conf
-COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
+COPY conf/nginx.conf.template /etc/nginx/conf.d/nginx.conf.template
 RUN mkdir -p /var/log/nginx
 RUN mkdir -p /etc/nginx/ssl
 

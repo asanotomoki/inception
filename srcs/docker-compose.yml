@@ -12,9 +12,11 @@ services:
       - ./requirements/nginx/logs:/var/log/nginx
       - ./requirements/wordpress/content:/var/www/html
     tty: true
-    stdin_open: true
+    environment:
+      - DOMAIN_NAME=${DOMAIN_NAME}
     depends_on:
       - wordpress
+    command:  /bin/sh -c "envsubst '$$DOMAIN_NAME' < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/nginx.conf && nginx -g 'daemon off;'"
     networks:
       - default
   wordpress: 

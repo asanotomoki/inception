@@ -1,7 +1,7 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name tasano.42.fr localhost;
+    server_name ${DOMAIN_NAME} localhost;
     return 301 https://$host$request_uri;
 
 	location / {
@@ -13,7 +13,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name tasano.42.fr;
+    server_name ${DOMAIN_NAME};
 
     ssl_certificate /etc/nginx/ssl/localhost.crt;
     ssl_certificate_key /etc/nginx/ssl/localhost.key;
