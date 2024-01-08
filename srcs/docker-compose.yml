@@ -2,36 +2,47 @@ version: '3'
 
 services:
   nginx: 
-    image: nginx
-    build: ./requirements/nginx
+    image: nginx:latest
+    build: requirements/nginx
     ports:
-      - 9000:80
+      - 443:443
     volumes:
-      - ./requirements/wordpress:/etc/nginx/conf.d
+      - ./requirements/nginx/conf:/etc/nginx/conf.d
+      - ./requirements/nginx/logs:/var/log/nginx
     tty: true
     stdin_open: true
     depends_on:
       - wordpress
+    networks:
+      - default
   wordpress: 
-    image: wordpress
-    build: ./requirements/wordpress
+    image: wordpress:latest
+    build: requirements/wordpress
     volumes:
       - ./requirements/wordpress/content:/var/www/html
+    expose:
+      - 9000
     environment: 
-      - ./wordpress/.env
+      - WORDPRESS_DB_HOST=db:3306
+      - WORDPRESS_DB_USER=root
+      - WORDPRESS_DB_PASSWORD=123456
+      - WORDPRESS_DB_NAME=wordpress
     depends_on:
       - db
+    networks:
+      - default
   db:
-    image: mariadb
-    build: ./requirements/mariadb
+    image: mariadb:latest
+    build: requirements/mariadb
     volumes:
-      - ./requirements/mariadb:/var/lib/mysql
+      - ./requirements/mariadb/database:/var/lib/mysql
     environment:
-      - ./.env
+      - MARIADB_ROOT_PASSWORD=123456
+      - MARIADB_DATABASE=wordpress
+    networks:
+      - default
     
 networks:
   default:
-    external:
-      name: nginx-proxy
-
+    driver: bridge
 
