@@ -11,14 +11,14 @@ DEFAULT	:= \033[0m
 .PHONY: build up down re  rm rmi init
 
 init:
-	@docker compose -f $(DOCKER_COMPOSE_FILE) up -d
-	@docker exec -it wordpress bash -c "bash /tmp/init.sh"
-	@docker compose -f $(DOCKER_COMPOSE_FILE) down
+	@echo "$(YELLOW) Init $(DEFAULT)"
+	@echo "127.0.0.1 tasano"
+# @docker compose -f $(DOCKER_COMPOSE_FILE) down
 	@echo "$(GREEN) Init $(DEFAULT)"
 
 
 build: 
-	docker compose -f $(DOCKER_COMPOSE_FILE) build
+	docker compose -f $(DOCKER_COMPOSE_FILE) build --no-cache
 
 up:
 	@docker compose -f $(DOCKER_COMPOSE_FILE) up -d

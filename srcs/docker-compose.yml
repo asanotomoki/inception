@@ -6,6 +6,7 @@ services:
     build: requirements/nginx
     ports:
       - 443:443
+      - 80:80
     volumes:
       - ./requirements/nginx/conf:/etc/nginx/conf.d
       - ./requirements/nginx/logs:/var/log/nginx
@@ -23,9 +24,10 @@ services:
       - ./requirements/wordpress/content:/var/www/html
     expose:
       - 9000
+    restart: always
     environment: 
-      - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-      - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+      - WORDPRESS_DB_HOST=db:3306
+      - WORDPRESS_DB_USER=${DB_USER}
       - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
       - WORDPRESS_DB_NAME=${DB_NAME}
     depends_on:
@@ -35,8 +37,10 @@ services:
   db:
     image: mariadb:latest
     build: requirements/mariadb
+    restart: always
     volumes:
       - ./requirements/mariadb/database:/var/lib/mysql
+    restart: always
     environment:
       - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
       - MARIADB_DATABASE=${DB_NAME}
