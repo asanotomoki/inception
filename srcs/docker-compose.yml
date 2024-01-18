@@ -2,7 +2,7 @@ version: '3'
 
 services:
   nginx: 
-    image: nginx:latest
+    image: nginx
     build: requirements/nginx
     ports:
       - 443:443
@@ -20,24 +20,20 @@ services:
     networks:
       - default
   wordpress: 
-    image: wordpress:latest
+    image: wordpress
     build: requirements/wordpress
     volumes:
       - ./requirements/wordpress/content:/var/www/html
     expose:
       - 9000
-    restart: always
-    environment: 
-      - WORDPRESS_DB_HOST=db:3306
-      - WORDPRESS_DB_USER=${DB_USER}
-      - WORDPRESS_DB_PASSWORD=${DB_PASSWORD}
-      - WORDPRESS_DB_NAME=${DB_NAME}
+    env_file:
+      - .env
     depends_on:
       - db
     networks:
       - default
   db:
-    image: mariadb:latest
+    image: mariadb
     build: requirements/mariadb
     restart: always
     volumes:

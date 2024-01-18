@@ -1,4 +1,5 @@
 *.png
 srcs/requirements/wordpress/content
 srcs/requirements/nginx/logs
+srcs/requirements/nginx/conf/nginx.conf
 srcs/requirements/mariadb/database
