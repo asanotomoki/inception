@@ -3,7 +3,6 @@ FROM debian:latest
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y nginx openssl gettext-base
 
-# SSL設定のための設定ファイルをコピー（設定ファイルを作成してください）
 COPY conf/nginx.conf.template /etc/nginx/conf.d/nginx.conf.template
 RUN mkdir -p /var/log/nginx
 RUN mkdir -p /etc/nginx/ssl
@@ -13,6 +12,5 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 	-keyout /etc/nginx/ssl/localhost.key -out /etc/nginx/ssl/localhost.crt
 
 EXPOSE 443
-EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
