@@ -4,6 +4,9 @@ RUN apt-get update && apt-get upgrade -y
 
 EXPOSE 9000
 RUN apt-get install -y php7.4 php7.4-fpm curl php7.4-mysql php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php7.4-zip php7.4-intl php7.4-soap php7.4-xmlrpc php7.4-ldap
+RUN apt-get install -y mariadb-client
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 RUN mkdir -p /run/php
 
 COPY tools/docker-entrypoint.sh /bin/docker-entrypoint.sh

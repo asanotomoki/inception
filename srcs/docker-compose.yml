@@ -18,6 +18,7 @@ services:
     command:  /bin/sh -c "envsubst '$$DOMAIN_NAME' < /etc/nginx/conf.d/nginx.conf.template > /etc/nginx/conf.d/nginx.conf && nginx -g 'daemon off;'"
     networks:
       - default
+    restart: always
   wordpress: 
     image: wordpress
     build: requirements/wordpress
@@ -31,16 +32,16 @@ services:
       - db
     networks:
       - default
+    restart: always
   db:
     image: mariadb
     build: requirements/mariadb
     restart: always
     volumes:
       - ./requirements/mariadb/database:/var/lib/mysql
-    restart: always
-    environment:
-      - MARIADB_ROOT_PASSWORD=${DB_PASSWORD}
-      - MARIADB_DATABASE=${DB_NAME}
+      - ./requirements/mariadb/logs:/var/log/
+    env_file:
+      - .env
     networks:
       - default
     

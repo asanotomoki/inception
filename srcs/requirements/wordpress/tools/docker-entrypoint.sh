@@ -1,16 +1,14 @@
 #!/bin/sh
-
-
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
+
 
 if [ ! -f /var/www/html/wp-config.php ]; then
     cp /tmp/wp-config.php /var/www/html/wp-config.php
     sed -i "s/WP_DB_NAME/$DB_NAME/g" /var/www/html/wp-config.php
     sed -i "s/WP_DB_USER/$DB_USER/g" /var/www/html/wp-config.php
     sed -i "s/WP_DB_PASSWORD/$DB_PASSWORD/g" /var/www/html/wp-config.php
-
 fi
 if [ ! -f /var/www/html/wp-admin ]; then
     wp core download --allow-root --path=/var/www/html
