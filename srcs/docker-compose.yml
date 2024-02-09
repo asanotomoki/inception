@@ -39,7 +39,6 @@ services:
     restart: always
     volumes:
       - ./requirements/mariadb/database:/var/lib/mysql
-      - ./requirements/mariadb/logs:/var/log/
     env_file:
       - .env
     networks:

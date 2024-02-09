@@ -1,11 +1,7 @@
-FROM debian:11.0
-
-RUN apt-get update && apt-get upgrade -y
+FROM debian:bullseye
 
 EXPOSE 9000
-RUN apt-get install -y php7.4 php7.4-fpm curl php7.4-mysql php7.4-mbstring php7.4-xml php7.4-gd php7.4-curl php7.4-zip php7.4-intl php7.4-soap php7.4-xmlrpc php7.4-ldap
-RUN apt-get install -y mariadb-client
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y php7.4 php7.4-fpm curl php7.4-mysql    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /run/php
 
@@ -16,6 +12,5 @@ COPY tools/www.conf /tmp/www.conf
 RUN chmod 755 /bin/docker-entrypoint.sh
 
 VOLUME [ "/var/www/html" ]
-
 
 ENTRYPOINT ["/bin/docker-entrypoint.sh"]

@@ -1,7 +1,6 @@
-FROM debian:latest
+FROM debian:bullseye
 
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y nginx openssl gettext-base
+RUN apt-get update && apt-get install -y nginx openssl gettext-base && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY conf/nginx.conf.template /etc/nginx/conf.d/nginx.conf.template
 RUN mkdir -p /var/log/nginx
